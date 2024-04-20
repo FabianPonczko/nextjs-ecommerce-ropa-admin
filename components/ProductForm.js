@@ -54,9 +54,10 @@ export default function ProductForm({
       for (const file of files) {
         data.append('file', file);
       }
+      
       const res = await axios.post('/api/upload', data);
       setImages(oldImages => {
-        return [...oldImages, ...res.data.links];
+        return [...oldImages, ...res.data?.links];
       });
       setIsUploading(false);
     }

@@ -126,19 +126,15 @@ function Categories({swal}) {
             Add new property
           </button>
           {properties.length > 0 && properties.map((property,index) => (
-            <div key={property.name} className="flex gap-1 mb-2">
+            <div key={property._id} className="flex gap-1 mb-2">
               <input type="text"
-                     value={property.name}
                      className="mb-0"
                      onChange={ev => handlePropertyNameChange(index,property,ev.target.value)}
+                     value={property.name}
                      placeholder="property name (example: color)"/>
               <input type="text"
                      className="mb-0"
-                     onChange={ev =>
-                       handlePropertyValuesChange(
-                         index,
-                         property,ev.target.value
-                       )}
+                     onChange={ev => handlePropertyValuesChange(index,property,ev.target.value)}
                      value={property.values}
                      placeholder="values, comma separated"/>
               <button

@@ -1,14 +1,26 @@
 import multiparty from 'multiparty';
-import {PutObjectCommand, S3Client} from '@aws-sdk/client-s3';
+import {
+  ref,
+  uploadBytes,
+  getDownloadURL,
+  listAll,
+  list,
+} from "firebase/storage";
+
 import fs from 'fs';
 import mime from 'mime-types';
 import {mongooseConnect} from "@/lib/mongoose";
 import {isAdminRequest} from "@/pages/api/auth/[...nextauth]";
+
+import { storage } from '@/lib/firebasedb';
+
 const bucketName = 'dawid-next-ecommerce';
 
-export default async function handle(req,res) {
+export default async function Handle(req,res) {
   await mongooseConnect();
   await isAdminRequest(req,res);
+
+  // const [imageUrl,setImageUrls] = useState(null)
 
   const form = new multiparty.Form();
   const {fields,files} = await new Promise((resolve,reject) => {
@@ -17,29 +29,27 @@ export default async function handle(req,res) {
       resolve({fields,files});
     });
   });
-  console.log('length:', files.file.length);
-  const client = new S3Client({
-    region: 'us-east-1',
-    credentials: {
-      accessKeyId: process.env.S3_ACCESS_KEY,
-      secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
-    },
-  });
+  // console.log('length:', files.file.length);
+  
   const links = [];
-  for (const file of files.file) {
+  
+   for (const file of files.file) {
     const ext = file.originalFilename.split('.').pop();
-    const newFilename = Date.now() + '.' + ext;
-    await client.send(new PutObjectCommand({
-      Bucket: bucketName,
-      Key: newFilename,
-      Body: fs.readFileSync(file.path),
-      ACL: 'public-read',
-      ContentType: mime.lookup(file.path),
-    }));
-    const link = `https://${bucketName}.s3.amazonaws.com/${newFilename}`;
-    links.push(link);
+    const newFilename = Date.now() 
+    const imagePath =  fs.readFileSync(file.path)
+     const imageRef =  ref(storage, `images/${file.originalFilename}`);
+    uploadBytes(imageRef,imagePath  ).then((snapshot) => {
+      getDownloadURL(snapshot.ref).then((url) => {
+        //  setImageUrls((prev) => [...prev, url]);
+        links.push(url)
+        return res.json({links});
+      });
+      
+    });
+    
+    
   }
-  return res.json({links});
+  
 }
 
 export const config = {
