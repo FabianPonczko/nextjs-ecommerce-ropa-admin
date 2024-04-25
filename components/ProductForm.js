@@ -22,6 +22,7 @@ export default function ProductForm({
   const [goToProducts,setGoToProducts] = useState(false);
   const [isUploading,setIsUploading] = useState(false);
   const [categories,setCategories] = useState([]);
+  const [stock,setStock] = useState([]);
   const router = useRouter();
   useEffect(() => {
     axios.get('/api/categories').then(result => {
@@ -108,14 +109,32 @@ export default function ProductForm({
                       onChange={ev =>
                         setProductProp(p.name,ev.target.value)
                       }
-              >
+                      >
                 {p.values.map(v => (
                   <option key={v} value={v}>{v}</option>
                 ))}
               </select>
             </div>
+
+                {console.log("PPP",p)}
+                  {/* {console.log(propertiesToFill,productProperties)} */}
+                
+                {category.length > 0 &&
+                <div>
+                  <label>Stock</label>
+                  <input  type="text"
+                  placeholder={productProperties[p.name]}
+                  value={productProperties[stock]}
+                  onChange={ev =>
+                    setProductProp("stock",ev.target.value)
+                  }
+                  />
+          </div>
+          }
+  
           </div>
         ))}
+          
         <label>
           Photos
         </label>

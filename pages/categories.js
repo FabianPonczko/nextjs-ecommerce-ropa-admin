@@ -46,7 +46,7 @@ function Categories({swal}) {
     setProperties(
       category.properties.map(({name,values}) => ({
       name,
-      values:values.join(',')
+      values:values.join(','),
     }))
     );
   }
