@@ -102,29 +102,33 @@ export default function ProductForm({
           ))}
         </select>
         {propertiesToFill.length > 0 && propertiesToFill.map(p => (
-          <div key={p.name} className="">
+          <div key={p.name}>
+             
+             {/* propiedades ej: talle , color */}
             <label>{p.name[0].toUpperCase()+p.name.substring(1)}</label>
             <div>
-              <select value={productProperties[p.name]}
+              <select value={productProperties[0]}
                       onChange={ev =>
                         setProductProp(p.name,ev.target.value)
                       }
                       >
+                <option value="">{productProperties[p.name]} </option>
                 {p.values.map(v => (
                   <option key={v} value={v}>{v}</option>
                 ))}
               </select>
             </div>
 
-                {console.log("PPP",p)}
-                  {/* {console.log(propertiesToFill,productProperties)} */}
+                {console.log("llega product properties",productProperties,"p: ",p)}
+                  {console.log("propertiesToFill",propertiesToFill)}
                 
-                {category.length > 0 &&
+                {/* {category.length > 0 && */}
+                {propertiesToFill[0].name === p.name &&
                 <div>
                   <label>Stock</label>
-                  <input  type="text"
-                  placeholder={productProperties[p.name]}
-                  value={productProperties[stock]}
+                  <input  type="number"
+                  placeholder={productProperties[p.name] }
+                  value={productProperties.stock ? productProperties.stock :  0  }
                   onChange={ev =>
                     setProductProp("stock",ev.target.value)
                   }

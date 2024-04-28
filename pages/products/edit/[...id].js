@@ -18,6 +18,7 @@ export default function EditProductPage() {
   }, [id]);
   return (
     <Layout>
+      {console.log("productInfo",productInfo)}
       <h1>Edit product</h1>
       {productInfo && (
         <ProductForm {...productInfo} />

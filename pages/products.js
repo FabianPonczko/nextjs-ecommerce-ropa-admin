@@ -2,13 +2,26 @@ import Layout from "@/components/Layout";
 import Link from "next/link";
 import {useEffect, useState} from "react";
 import axios from "axios";
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
 
 export default function Products() {
   const [products,setProducts] = useState([]);
+  const [loading,setLoading] = useState(true);
+
   useEffect(() => {
-    axios.get('/api/products').then(response => {
-      setProducts(response.data);
-    });
+    try {
+      axios.get('/api/products').then(response => {
+        setProducts(response.data);
+      });
+      
+    } catch (error) {
+      console.log(error)
+    }finally{
+      setTimeout(()=>{
+        setLoading(false)
+      },"500")
+    }
   }, []);
   return (
     <Layout>
@@ -20,6 +33,24 @@ export default function Products() {
             <td></td>
           </tr>
         </thead>
+        
+         {/* Five-line loading skeleton */}
+         {loading ?
+         <div>
+         <Skeleton height={30} width={400}/>
+         <Skeleton height={30} width={600}/>
+         <Skeleton height={30} width={500}/>
+         <Skeleton height={30} width={700}/>
+         <Skeleton height={30} width={500}/>
+         <Skeleton height={30} width={390}/>
+         <Skeleton height={30} width={600}/>
+         <Skeleton height={30} width={800}/>
+         <Skeleton height={30} width={500}/>
+         <Skeleton height={30} width={350}/>
+         </div>
+        : 
+         
+        
         <tbody>
           {products.map(product => (
             <tr key={product._id}>
@@ -41,6 +72,7 @@ export default function Products() {
             </tr>
           ))}
         </tbody>
+        }
       </table>
     </Layout>
   );
