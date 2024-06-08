@@ -12,11 +12,20 @@ export default function ProductForm({
   images:existingImages,
   category:assignedCategory,
   properties:assignedProperties,
-}) {
+
+  weight:existingWeight,
+  height: existingHeight,
+  width: existingWidth,
+  depth: existingDepth,
+  }) {
   const [title,setTitle] = useState(existingTitle || '');
   const [description,setDescription] = useState(existingDescription || '');
   const [category,setCategory] = useState(assignedCategory || '');
   const [productProperties,setProductProperties] = useState(assignedProperties || {});
+  const [weight,setWeight] = useState(existingWeight || '');
+  const [height,setHeight] = useState(existingHeight || '');
+  const [width,setWidth] = useState(existingWidth || '');
+  const [depth,setDepth] = useState(existingDepth || '');
   const [price,setPrice] = useState(existingPrice || '');
   const [images,setImages] = useState(existingImages || []);
   const [goToProducts,setGoToProducts] = useState(false);
@@ -24,6 +33,8 @@ export default function ProductForm({
   const [categories,setCategories] = useState([]);
   const [stock,setStock] = useState([]);
   const router = useRouter();
+
+  
   useEffect(() => {
     axios.get('/api/categories').then(result => {
       setCategories(result.data);
@@ -179,6 +190,31 @@ export default function ProductForm({
           type="number" placeholder="price"
           value={price}
           onChange={ev => setPrice(ev.target.value)}
+        />
+        <p style={{marginTop:"20px",marginBottom:"10px"}}>For the delivery only</p>
+        <label>Weight (in gr)</label>
+        <input
+          type="number" placeholder="weigth"
+          value={weight}
+          onChange={ev => setWeight(ev.target.value)}
+        />
+        <label>height (in cm)</label>
+        <input
+          type="number" placeholder="heigth"
+          value={height}
+          onChange={ev => setHeight(ev.target.value)}
+        />
+        <label>width (in cm)</label>
+        <input
+          type="number" placeholder="width"
+          value={width}
+          onChange={ev => setWidth(ev.target.value)}
+        />
+        <label>Depth (in cm)</label>
+        <input
+          type="number" placeholder="depth"
+          value={depth}
+          onChange={ev => setDepth(ev.target.value)}
         />
         <button
           type="submit"

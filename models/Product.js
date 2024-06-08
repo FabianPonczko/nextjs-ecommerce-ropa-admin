@@ -5,6 +5,11 @@ const ProductSchema = new Schema({
   description: String,
   price: {type: Number, required: true},
   images: [{type:String}],
+  weight: {type: Number, required: true},
+  height: {type: Number, required: true},
+  width: {type: Number, required: true},
+  depth: {type: Number, required: true},
+
   category: {type:mongoose.Types.ObjectId, ref:'Category'},
   properties: {type:Object},
 }, {
