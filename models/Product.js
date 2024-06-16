@@ -9,7 +9,6 @@ const ProductSchema = new Schema({
   height: {type: Number, required: true},
   width: {type: Number, required: true},
   depth: {type: Number, required: true},
-
   category: {type:mongoose.Types.ObjectId, ref:'Category'},
   properties: {type:Object},
 }, {
