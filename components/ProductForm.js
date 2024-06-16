@@ -43,7 +43,7 @@ export default function ProductForm({
   async function saveProduct(ev) {
     ev.preventDefault();
     const data = {
-      title,description,price,images,category,
+      title,description,price,images,category,weight,width,height,depth,
       properties:productProperties
     };
     if (_id) {
