@@ -105,8 +105,8 @@ const filterThisYear = () => {
       
     </div>
     <div>
-      <div className="mt-5 font-bold text-center bg-slate-300">Ventas</div>
-      <div className=" p-3 flex justify-evenly font-extrabold font-mono">
+      <div className="mt-5 font-bold font-sans text-center bg-slate-300">Ventas</div>
+      <div className=" p-3 flex justify-evenly font-serif">
         <div>
             {filteredItemsDay.length > 0 && (
               <div className=" mt-5 p-3 bg-green-300 flex flex-col justify-around w-60 h-32 rounded-lg ">
