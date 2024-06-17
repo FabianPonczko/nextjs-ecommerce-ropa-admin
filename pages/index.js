@@ -44,6 +44,9 @@ useEffect(()=>{
       return createdAt >= start && createdAt <= end;
     });
     
+    // const total = filtered.reduce((sum, item) => sum + item.price, 0);
+    // setTotalPrice(total);
+
     setFilteredItemsDay(todayItems);
   };
   const filterThisWeek = () => {
