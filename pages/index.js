@@ -41,12 +41,12 @@ useEffect(()=>{
     
     const todayItems = items.filter(item => {
       const createdAt = new Date(item.createdAt);
-      return createdAt >= start && createdAt <= end;
+      return createdAt >= start && createdAt <= end && item.paid===true;
     });
     
     // const total = filtered.reduce((sum, item) => sum + item.price, 0);
     // setTotalPrice(total);
-
+    console.log({todayItems})
     setFilteredItemsDay(todayItems);
   };
   const filterThisWeek = () => {
@@ -59,7 +59,7 @@ useEffect(()=>{
     
     const weekItems = items.filter(item => {
       const createdAt = new Date(item.createdAt);
-      return createdAt >= start && createdAt <= end;
+      return createdAt >= start && createdAt <= end && item.paid===true;
     });
     
     setFilteredItemsWeek(weekItems);
@@ -74,7 +74,7 @@ useEffect(()=>{
 
     const monthItems = items.filter(item => {
         const createdAt = new Date(item.createdAt);
-        return createdAt >= start && createdAt <= end;
+        return createdAt >= start && createdAt <= end && item.paid===true;
     });
 
     setFilteredItemsMonth(monthItems);
@@ -88,11 +88,37 @@ const filterThisYear = () => {
 
   const yearItems = items.filter(item => {
       const createdAt = new Date(item.createdAt);
-      return createdAt >= start && createdAt <= end;
+      return createdAt >= start && createdAt <= end && item.paid===true;
   });
 
   setFilteredItemsYear(yearItems);
 };
+
+const amountDay = Object.values(filteredItemsDay).flat().reduce((sum, item) => {
+  return sum + item.line_items.reduce((lineItemSum, lineItem) => {
+    return lineItemSum + lineItem.price_data.unit_amount;
+  }, 0);
+}, 0);
+
+const amountWeek = Object.values(filteredItemsWeek).flat().reduce((sum, item) => {
+  return sum + item.line_items.reduce((lineItemSum, lineItem) => {
+    return lineItemSum + lineItem.price_data.unit_amount;
+  }, 0);
+}, 0);
+
+const amountMonth = Object.values(filteredItemsMonth).flat().reduce((sum, item) => {
+  return sum + item.line_items.reduce((lineItemSum, lineItem) => {
+    return lineItemSum + lineItem.price_data.unit_amount;
+  }, 0);
+}, 0);
+
+const amountYear =  Object.values(filteredItemsYear).flat().reduce((sum, item) => {
+  return sum + item.line_items.reduce((lineItemSum, lineItem) => {
+    return lineItemSum + lineItem.price_data.unit_amount;
+  }, 0);
+}, 0);
+
+
 
   return <Layout>
     <div className="text-blue-900 flex justify-between">
@@ -109,58 +135,110 @@ const filterThisYear = () => {
     </div>
     <div>
       <div className="mt-5 font-bold font-sans text-center bg-slate-300">Ventas</div>
-      <div className=" p-3 flex justify-evenly font-serif">
-        <div>
-            {filteredItemsDay.length > 0 && (
-              <div className=" mt-5 p-3 bg-green-300 flex flex-col justify-around w-60 h-32 rounded-lg ">
-                <div className=" flex justify-around">
-                  <span >Diarias</span>
+      <div className="flex flex-col">
+        <div className=" p-3 flex justify-evenly font-serif">
+          <div>
+              {filteredItemsDay.length > 0 && (
+                <div className=" mt-5 p-3 bg-slate-200 flex flex-col justify-around w-60 h-32 rounded-lg ">
+                  <div className=" flex justify-around">
+                    <span >Ordenes Diarias</span>
+                  </div>
+                  <div className=" flex justify-around font-bold font-mono">
+                    <p>{filteredItemsDay.length}</p>
+                  </div>
                 </div>
+              )}
+
+          </div>
+          <div>
+            {filteredItemsWeek.length > 0 && (
+              <div className="  mt-5 p-3 bg-slate-200 flex flex-col justify-around w-60 h-32 rounded-lg ">
                 <div className=" flex justify-around">
-                  <p>{filteredItemsDay.length}</p>
+                  <span>Ordenes Semanales</span>
+                </div>
+                <div className=" flex justify-around font-bold font-mono">
+                  <p>{filteredItemsWeek.length}</p>
                 </div>
               </div>
             )}
-
+            
+          </div>
+          <div>
+            {filteredItemsMonth.length > 0 && (
+              <div className="  mt-5 p-3 bg-slate-200 flex flex-col justify-around w-60 h-32 rounded-lg ">
+                <div className=" flex justify-around">
+                  <span>Ordenes Memsuales</span>
+                </div>
+                <div className=" flex justify-around font-bold font-mono">
+                  <p>{filteredItemsMonth.length}</p>
+                </div>
+              </div>
+            )}
+            
+          </div>
+          <div>
+            {filteredItemsYear.length > 0 && (
+              <div className="  mt-5 p-3 bg-slate-200 flex flex-col justify-around w-60 h-32 rounded-lg ">
+                <div className=" flex justify-around">
+                  <span>Ordenes Anuales</span>
+                </div>
+                <div className=" flex justify-around font-bold font-mono">
+                  <p>{filteredItemsYear.length}</p>
+                </div>
+              </div>
+            )}
+            
+          </div>
+        </div>
+        <div className=" p-3 flex justify-evenly font-serif">
+        <div>
+        {filteredItemsDay.length > 0 && (
+                <div className=" mt-5 p-3 bg-slate-200 flex flex-col justify-around w-60 h-32 rounded-lg ">
+                  <div className=" flex justify-around">
+                    <span >Suma Diaria</span>
+                  </div>
+                  <div className=" flex justify-around font-bold font-mono">
+                    <p>${amountDay}</p>
+                  </div>
+                </div>
+              )}
         </div>
         <div>
-          {filteredItemsWeek.length > 0 && (
-            <div className="  mt-5 p-3 bg-orange-300 flex flex-col justify-around w-60 h-32 rounded-lg ">
-              <div className=" flex justify-around">
-                <span>Semanales</span>
-              </div>
-              <div className=" flex justify-around">
-                <p>{filteredItemsWeek.length}</p>
-              </div>
-            </div>
-          )}
-          
+        {filteredItemsWeek.length > 0 && (
+                <div className=" mt-5 p-3 bg-slate-200 flex flex-col justify-around w-60 h-32 rounded-lg ">
+                  <div className=" flex justify-around">
+                    <span >Suma Semanal</span>
+                  </div>
+                  <div className=" flex justify-around font-bold font-mono">
+                    <p>${amountWeek}</p>
+                  </div>
+                </div>
+              )}
         </div>
         <div>
-          {filteredItemsMonth.length > 0 && (
-            <div className="  mt-5 p-3 bg-indigo-300 flex flex-col justify-around w-60 h-32 rounded-lg ">
-              <div className=" flex justify-around">
-                <span>Memsuales</span>
-              </div>
-              <div className=" flex justify-around">
-                <p>{filteredItemsMonth.length}</p>
-              </div>
-            </div>
-          )}
-          
+        {filteredItemsMonth.length > 0 && (
+                <div className=" mt-5 p-3 bg-slate-200 flex flex-col justify-around w-60 h-32 rounded-lg ">
+                  <div className=" flex justify-around">
+                    <span >Suma Mensual</span>
+                  </div>
+                  <div className=" flex justify-around font-bold font-mono">
+                    <p>${amountMonth}</p>
+                  </div>
+                </div>
+              )}
         </div>
         <div>
-          {filteredItemsYear.length > 0 && (
-            <div className="  mt-5 p-3 bg-red-400 flex flex-col justify-around w-60 h-32 rounded-lg ">
-              <div className=" flex justify-around">
-                <span>Anuales</span>
-              </div>
-              <div className=" flex justify-around">
-                <p>{filteredItemsYear.length}</p>
-              </div>
-            </div>
-          )}
-          
+        {filteredItemsYear.length > 0 && (
+                <div className=" mt-5 p-3 bg-slate-200 flex flex-col justify-around w-60 h-32 rounded-lg ">
+                  <div className=" flex justify-around">
+                    <span>Suma Anual</span>
+                  </div>
+                  <div className=" flex justify-around font-bold font-mono">
+                    <p>${amountYear}</p>
+                  </div>
+                </div>
+              )}
+        </div>
         </div>
       </div>
     </div>
