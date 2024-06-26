@@ -167,7 +167,7 @@ const amountYear =  Object.values(filteredItemsYear).flat().reduce((sum, item) =
             {filteredItemsMonth.length > 0 && (
               <div className="  mt-5 p-3 bg-slate-200 flex flex-col justify-around w-60 h-32 rounded-lg ">
                 <div className=" flex justify-around">
-                  <span>Ordenes Memsuales</span>
+                  <span>Ordenes Mensuales</span>
                 </div>
                 <div className=" flex justify-around font-bold font-mono">
                   <p>{filteredItemsMonth.length}</p>
