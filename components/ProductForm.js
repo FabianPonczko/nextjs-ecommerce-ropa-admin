@@ -9,6 +9,7 @@ export default function ProductForm({
   title:existingTitle,
   description:existingDescription,
   price:existingPrice,
+  stock:existingStock,
   images:existingImages,
   category:assignedCategory,
   properties:assignedProperties,
@@ -27,11 +28,11 @@ export default function ProductForm({
   const [width,setWidth] = useState(existingWidth || '');
   const [depth,setDepth] = useState(existingDepth || '');
   const [price,setPrice] = useState(existingPrice || '');
+  const [stock,setStock] = useState(existingStock || '');
   const [images,setImages] = useState(existingImages || []);
   const [goToProducts,setGoToProducts] = useState(false);
   const [isUploading,setIsUploading] = useState(false);
   const [categories,setCategories] = useState([]);
-  const [stock,setStock] = useState([]);
   const router = useRouter();
 
   
@@ -43,7 +44,7 @@ export default function ProductForm({
   async function saveProduct(ev) {
     ev.preventDefault();
     const data = {
-      title,description,price,images,category,weight,width,height,depth,
+      title,description,price,stock,images,category,weight,width,height,depth,
       properties:productProperties
     };
     if (_id) {
@@ -138,11 +139,9 @@ export default function ProductForm({
                 <div>
                   <label>Stock</label>
                   <input  type="number"
-                  placeholder={productProperties[p.name] }
-                  value={productProperties.stock ? productProperties.stock :  0  }
-                  onChange={ev =>
-                    setProductProp("stock",ev.target.value)
-                  }
+                  placeholder={stock }
+                  value={stock}
+                  onChange={ev =>setStock(ev.target.value)}
                   />
           </div>
           }
