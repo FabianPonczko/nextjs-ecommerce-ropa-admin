@@ -96,25 +96,25 @@ const filterThisYear = () => {
 
 const amountDay = Object.values(filteredItemsDay).flat().reduce((sum, item) => {
   return sum + item.line_items.reduce((lineItemSum, lineItem) => {
-    return lineItemSum + lineItem.price_data.unit_amount;
+    return lineItemSum + lineItem.product_data.amount;
   }, 0);
 }, 0);
 
 const amountWeek = Object.values(filteredItemsWeek).flat().reduce((sum, item) => {
   return sum + item.line_items.reduce((lineItemSum, lineItem) => {
-    return lineItemSum + lineItem.price_data.unit_amount;
+    return lineItemSum + lineItem.product_data.amount;
   }, 0);
 }, 0);
 
 const amountMonth = Object.values(filteredItemsMonth).flat().reduce((sum, item) => {
   return sum + item.line_items.reduce((lineItemSum, lineItem) => {
-    return lineItemSum + lineItem.price_data.unit_amount;
+    return lineItemSum + lineItem.product_data.amount;
   }, 0);
 }, 0);
 
 const amountYear =  Object.values(filteredItemsYear).flat().reduce((sum, item) => {
   return sum + item.line_items.reduce((lineItemSum, lineItem) => {
-    return lineItemSum + lineItem.price_data.unit_amount;
+    return lineItemSum + lineItem.product_data.amount;
   }, 0);
 }, 0);
 

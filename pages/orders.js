@@ -20,6 +20,7 @@ export default function OrdersPage() {
             <th>Paid</th>
             <th>Recipient</th>
             <th>Products</th>
+            <th>Total</th>
           </tr>
         </thead>
         <tbody>
@@ -40,10 +41,19 @@ export default function OrdersPage() {
             <td>
               {order.line_items.map(l => (
                 <span key={l.name}>
-                  {l.quantity} - {l.price_data?.product_data.name} 
+                  {l.product_data?.quantity} - {l.product_data?.title} 
                   <br />
                 </span>
               ))}
+            </td>
+            {order.line_items.map(l => (
+                <span key={l._id}>
+                  {l.product_data?.amount}
+                  
+                </span>
+              ))}
+            <td>
+              
             </td>
           </tr>          
         ))}
