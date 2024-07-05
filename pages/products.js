@@ -18,10 +18,9 @@ export default function Products() {
     } catch (error) {
       console.log(error)
     }finally{
-      setTimeout(()=>{
         setLoading(false)
-      },"500")
     }
+    
   }, []);
   return (
     <Layout>

@@ -12,8 +12,8 @@ export default function OrdersPage() {
   return (
     <Layout>
       <h1>Orders</h1>
-      <table className="basic">
-        <thead>
+      <table className="basic" >
+        <thead   style={{border:"1px solid blue",backgroundColor:"#2222"}}>
           <tr>
             <th>Date</th>
             <th>Id</th>
@@ -24,9 +24,10 @@ export default function OrdersPage() {
           </tr>
         </thead>
         <tbody>
+          <tr></tr>
         {orders.length > 0 && orders.map(order => (
-          <tr key={order._id}  >
-            <td >{(new Date(order.createdAt)).toLocaleString() }
+          <tr style={{border:"1px solid blue"}} key={order._id}  >
+            <td  >{(new Date(order.createdAt)).toLocaleString() }
             </td>
             <td >{order._id}
             </td>
@@ -46,15 +47,15 @@ export default function OrdersPage() {
                 </span>
               ))}
             </td>
-            {order.line_items.map(l => (
-                <span key={l._id}>
-                  {l.product_data?.amount}
-                  
-                </span>
-              ))}
             <td>
-              
-            </td>
+              {order.line_items.map(l => (
+                <span key={l._id}>
+                    {l.product_data?.amount}
+                    
+                  </span>
+                ))}
+              </td>
+           
           </tr>          
         ))}
         </tbody>
