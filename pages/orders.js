@@ -48,12 +48,14 @@ export default function OrdersPage() {
               ))}
             </td>
             <td>
-              {order.line_items.map(l => (
+              {/* {order.line_items.map(l => (
                 <span key={l._id}>
                     {l.product_data?.amount}
-                    
-                  </span>
-                ))}
+                </span>
+                ))} */}
+              {order.line_items.reduce((total, l) => {
+                return total + (l.product_data?.amount || 0);
+              }, 0)}
               </td>
            
           </tr>          

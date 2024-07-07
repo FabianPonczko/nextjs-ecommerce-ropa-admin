@@ -134,12 +134,12 @@ const amountYear =  Object.values(filteredItemsYear).flat().reduce((sum, item) =
       
     </div>
     <div>
-      <div className="mt-5 font-bold font-sans text-center bg-slate-300">Ventas</div>
+      {/* <div className="mt-5 font-bold font-sans text-center bg-slate-300">Ventas</div> */}
       <div className="flex flex-col">
         <div className=" p-3 flex justify-evenly font-serif">
           <div>
-              {filteredItemsDay.length > 0 && (
-                <div className=" mt-5 p-3 bg-slate-200 flex flex-col justify-around w-60 h-32 rounded-lg ">
+              { (
+                <div className=" mt-5 p-3 shadow-lg flex flex-col justify-around w-60 h-32 rounded-lg ">
                   <div className=" flex justify-around">
                     <span >Ordenes Diarias</span>
                   </div>
@@ -151,8 +151,8 @@ const amountYear =  Object.values(filteredItemsYear).flat().reduce((sum, item) =
 
           </div>
           <div>
-            {filteredItemsWeek.length > 0 && (
-              <div className="  mt-5 p-3 bg-slate-200 flex flex-col justify-around w-60 h-32 rounded-lg ">
+            {(
+              <div className="  mt-5 p-3 shadow-lg flex flex-col justify-around w-60 h-32 rounded-lg ">
                 <div className=" flex justify-around">
                   <span>Ordenes Semanales</span>
                 </div>
@@ -164,8 +164,8 @@ const amountYear =  Object.values(filteredItemsYear).flat().reduce((sum, item) =
             
           </div>
           <div>
-            {filteredItemsMonth.length > 0 && (
-              <div className="  mt-5 p-3 bg-slate-200 flex flex-col justify-around w-60 h-32 rounded-lg ">
+            {(
+              <div className="  mt-5 p-3 shadow-lg flex flex-col justify-around w-60 h-32 rounded-lg ">
                 <div className=" flex justify-around">
                   <span>Ordenes Mensuales</span>
                 </div>
@@ -177,8 +177,8 @@ const amountYear =  Object.values(filteredItemsYear).flat().reduce((sum, item) =
             
           </div>
           <div>
-            {filteredItemsYear.length > 0 && (
-              <div className="  mt-5 p-3 bg-slate-200 flex flex-col justify-around w-60 h-32 rounded-lg ">
+            {(
+              <div className="  mt-5 p-3 shadow-lg flex flex-col justify-around w-60 h-32 rounded-lg ">
                 <div className=" flex justify-around">
                   <span>Ordenes Anuales</span>
                 </div>
@@ -192,8 +192,8 @@ const amountYear =  Object.values(filteredItemsYear).flat().reduce((sum, item) =
         </div>
         <div className=" p-3 flex justify-evenly font-serif">
         <div>
-        {filteredItemsDay.length > 0 && (
-                <div className=" mt-5 p-3 bg-slate-200 flex flex-col justify-around w-60 h-32 rounded-lg ">
+        {(
+                <div className=" mt-5 p-3 shadow-lg flex flex-col justify-around w-60 h-32 rounded-lg ">
                   <div className=" flex justify-around">
                     <span >Suma Diaria</span>
                   </div>
@@ -204,8 +204,8 @@ const amountYear =  Object.values(filteredItemsYear).flat().reduce((sum, item) =
               )}
         </div>
         <div>
-        {filteredItemsWeek.length > 0 && (
-                <div className=" mt-5 p-3 bg-slate-200 flex flex-col justify-around w-60 h-32 rounded-lg ">
+        {(
+                <div className=" mt-5 p-3 shadow-lg flex flex-col justify-around w-60 h-32 rounded-lg ">
                   <div className=" flex justify-around">
                     <span >Suma Semanal</span>
                   </div>
@@ -216,8 +216,8 @@ const amountYear =  Object.values(filteredItemsYear).flat().reduce((sum, item) =
               )}
         </div>
         <div>
-        {filteredItemsMonth.length > 0 && (
-                <div className=" mt-5 p-3 bg-slate-200 flex flex-col justify-around w-60 h-32 rounded-lg ">
+        {(
+                <div className=" mt-5 p-3 shadow-lg flex flex-col justify-around w-60 h-32 rounded-lg ">
                   <div className=" flex justify-around">
                     <span >Suma Mensual</span>
                   </div>
@@ -228,8 +228,8 @@ const amountYear =  Object.values(filteredItemsYear).flat().reduce((sum, item) =
               )}
         </div>
         <div>
-        {filteredItemsYear.length > 0 && (
-                <div className=" mt-5 p-3 bg-slate-200 flex flex-col justify-around w-60 h-32 rounded-lg ">
+        {(
+                <div className=" mt-5 p-3 shadow-lg flex flex-col justify-around w-60 h-32 rounded-lg ">
                   <div className=" flex justify-around">
                     <span>Suma Anual</span>
                   </div>
