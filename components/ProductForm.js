@@ -30,6 +30,7 @@ export default function ProductForm({
   const [price,setPrice] = useState(existingPrice || '');
   const [stock,setStock] = useState(existingStock || '');
   const [images,setImages] = useState(existingImages || []);
+  const [linkEliminar,setLinkEliminar] = useState("");
   const [goToProducts,setGoToProducts] = useState(false);
   const [isUploading,setIsUploading] = useState(false);
   const [categories,setCategories] = useState([]);
@@ -45,7 +46,7 @@ export default function ProductForm({
     ev.preventDefault();
     const data = {
       title,description,price,stock,images,category,weight,width,height,depth,
-      properties:productProperties
+      properties:productProperties,linkEliminar
     };
     if (_id) {
       //update
@@ -74,6 +75,21 @@ export default function ProductForm({
       });
       setIsUploading(false);
     }
+  }
+  async function deleteImage(link) {
+    setLinkEliminar(link)
+    const data = {link,images};
+    if(_id){
+      try {
+        const res = await axios.put('/api/deleteImage', {...data,_id});
+        setImages(res.data?.newImages);
+        console.log('Imagen eliminada exitosamente');
+      } catch (error) {
+        console.error('Error al eliminar la imagen:', error);
+        // Maneja el error según tus necesidades, por ejemplo, mostrando un mensaje al usuario
+      }
+    }
+    
   }
   function updateImagesOrder(images) {
     setImages(images);
@@ -131,9 +147,6 @@ export default function ProductForm({
               </select>
             </div>
 
-                {console.log("llega product properties",productProperties,"p: ",p)}
-                  {console.log("propertiesToFill",propertiesToFill)}
-                
                 {/* {category.length > 0 && */}
                 {propertiesToFill[0].name === p.name &&
                 <div>
@@ -158,9 +171,14 @@ export default function ProductForm({
             className="flex flex-wrap gap-1"
             setList={updateImagesOrder}>
             {!!images?.length && images.map(link => (
+              <>
               <div key={link} className="h-24 bg-white p-4 shadow-sm rounded-sm border border-gray-200">
+              <label style={{position:"absolute",backgroundColor:"red",borderRadius:"50%" ,width:"15px",color:"white",display:"flex",justifyContent:"center",cursor:"pointer"}}
+              onClick={()=>deleteImage(link)}
+              >X</label>
                 <img src={link} alt="" className="rounded-lg"/>
               </div>
+              </>
             ))}
           </ReactSortable>
           {isUploading && (
