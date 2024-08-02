@@ -11,8 +11,8 @@ export default async function handle(req, res) {
 
   if (method === 'PUT') {
     const {_id,link,images} = req.body;
-    // console.log(_id,link)
-    const newImages = images.filter((links)=> links !== link)
+    console.log("link a eliminar ",link)
+    const newImages = images.filter((links)=> !links.includes(link))
     // console.log({newImages})
     // await Product.updateOne({_id}, {images:newImages});
     res.json({newImages});

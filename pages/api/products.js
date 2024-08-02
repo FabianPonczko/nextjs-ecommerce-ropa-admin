@@ -33,15 +33,17 @@ export default async function handle(req, res) {
   if (method === 'PUT') {
     const {linkEliminar,title,description,price,stock,images,category,weight,width,height,depth, properties,_id} = req.body;
     await Product.updateOne({_id}, {title,description,price,stock,images,category,weight,width,height,depth, properties});
-    if(linkEliminar){
-        // Create a reference to the file to delete
-        const desertRef = ref(storage, linkEliminar);
-        // Delete the file
+    if(linkEliminar && linkEliminar.length > 0){
+      linkEliminar.forEach((linkAeliminar) => {
+        // Crear una referencia al archivo a eliminar
+        const desertRef = ref(storage, linkAeliminar);
+        // Eliminar el archivo
         deleteObject(desertRef).then(() => {
-          console.log("File deleted successfully")
+            console.log(`File ${linkAeliminar} deleted successfully`);
         }).catch((error) => {
-          console.log("Uh-oh, an error occurred!")
+            console.log(`Uh-oh, an error occurred while deleting ${linkAeiminar}:`, error);
         });
+    });
     }
       res.json(true);
   }

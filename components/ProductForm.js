@@ -28,9 +28,9 @@ export default function ProductForm({
   const [width,setWidth] = useState(existingWidth || '');
   const [depth,setDepth] = useState(existingDepth || '');
   const [price,setPrice] = useState(existingPrice || '');
-  const [stock,setStock] = useState(existingStock || '');
+  const [stock,setStock] = useState(existingStock || 0);
   const [images,setImages] = useState(existingImages || []);
-  const [linkEliminar,setLinkEliminar] = useState("");
+  const [linkEliminar,setLinkEliminar] = useState([]);
   const [goToProducts,setGoToProducts] = useState(false);
   const [isUploading,setIsUploading] = useState(false);
   const [categories,setCategories] = useState([]);
@@ -77,7 +77,7 @@ export default function ProductForm({
     }
   }
   async function deleteImage(link) {
-    setLinkEliminar(link)
+    setLinkEliminar((prev)=>[...prev,link])
     const data = {link,images};
     if(_id){
       try {
